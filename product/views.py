@@ -10,11 +10,13 @@ from rest_framework.views import APIView
 class ProductListView(APIView):
     permission_classes = [IsAuthenticated,]
     def get(self, request):
+        """get list of all products"""
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 
     def post(self, request):
+        """create a new product"""
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -28,11 +30,13 @@ class ProductDetailView(APIView):
         return get_object_or_404(Product, pk=pk)
 
     def get(self, request, pk):
+        """get a product with id"""
         product = self.get_object(pk)
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 
     def put(self, request, pk):
+        """edit a product with id"""
         product = self.get_object(pk)
         serializer = ProductSerializer(product, data=request.data)
         if serializer.is_valid():
@@ -41,6 +45,7 @@ class ProductDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
+        """delete a product with id"""
         product = self.get_object(pk)
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

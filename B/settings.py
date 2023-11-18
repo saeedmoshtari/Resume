@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'product.apps.ProductConfig'
+    'product.apps.ProductConfig',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'shop api',
+    'DESCRIPTION': 'this is a shop api',
+    'VERSION': '1.0.0',
 
 }
